@@ -67,6 +67,34 @@ class GraphWithAdjList {
             }
         }
 
+        void bfs(int src){
+            
+            map<int, bool> visited = {0};
+
+            queue<int> q;
+
+            q.push(src);
+            visited[src] = true;
+
+            while( !q.empty()){
+                int node = q.front();
+                q.pop();
+                
+                //operations or processing of nodes
+                cout << node << " ";
+
+                for(auto it : adj_list[node]){
+                    if( ! visited[it] ){
+                        q.push(it);
+                        visited[it] = true;
+                    }
+                }
+            }
+
+
+
+        }
+
 };
 
 int main() {
@@ -79,11 +107,34 @@ int main() {
     cout <<"enter 0 for non directed graph and 1 for directed graph"<<endl;
     cin >> is_directed;
 
-    cout<< "Enter 1 for AdjMatrix or Enter 0 for AdjList "<<endl;
-    cin >> is_mat;
+    // cout<< "Enter 1 for AdjMatrix or Enter 0 for AdjList "<<endl;
+    // cin >> is_mat;
 
-    if (is_mat) {
-        GraphWithAdjMatrix graph(n, m, is_directed);
+    // if (is_mat) {
+    //     GraphWithAdjMatrix graph(n, m, is_directed);
+
+    //     for (int i = 0; i < m; i++) {
+    //         int u, v;
+    //         cin >> u >> v;
+    //         graph.add_edge(u, v);
+    //     }
+
+    //     // Print adjacency matrix
+    //     graph.print_adj_matrix();
+    // } else {
+    //     GraphWithAdjList graph(n, m, is_directed);
+
+    //     for (int i = 0; i < m; i++) {
+    //         int u, v;
+    //         cin >> u >> v;
+    //         graph.add_edge(u, v);
+    //     }
+
+    //     // Print adjacency list
+    //     graph.print_adj_list();
+    // }
+
+    GraphWithAdjList graph(n, m, is_directed);
 
         for (int i = 0; i < m; i++) {
             int u, v;
@@ -91,20 +142,8 @@ int main() {
             graph.add_edge(u, v);
         }
 
-        // Print adjacency matrix
-        graph.print_adj_matrix();
-    } else {
-        GraphWithAdjList graph(n, m, is_directed);
-
-        for (int i = 0; i < m; i++) {
-            int u, v;
-            cin >> u >> v;
-            graph.add_edge(u, v);
-        }
-
-        // Print adjacency list
-        graph.print_adj_list();
-    }
-
+        graph.bfs(1);
+        // // Print adjacency list
+        // graph.print_adj_list();
     return 0;
 }
